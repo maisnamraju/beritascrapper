@@ -1,0 +1,32 @@
+{
+  "name": "beritascrapper",
+  "version": "1.0.0",
+  "description": "News Scrapping Bot using NodeJS",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/maisnamraju/beritascrapper.git"
+  },
+  "keywords": [
+    "nodejs"
+  ],
+  "author": "maisnamraju",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/maisnamraju/beritascrapper/issues"
+  },
+  "homepage": "https://github.com/maisnamraju/beritascrapper#readme",
+  "dependencies": {
+    "cheerio": "^0.19.0",
+    "express": "^4.13.3",
+    "mongoose": "^4.1.4",
+    "request": "^2.61.0"
+  },
+  "devDependencies": {
+    "gulp": "^3.9.0",
+    "gulp-nodemon": "^2.0.4"
+  }
+}

@@ -30,4 +30,4 @@ var News = mongoose.model('News', {
 
 });
 
-module.exports = News;
+module.exports = mongoose.model(News,'News');

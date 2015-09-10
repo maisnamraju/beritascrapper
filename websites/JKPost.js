@@ -1,82 +1,79 @@
 module.exports = function() {
 
-var request = require('request');
-var fs = require('fs');
-var News = require('News.js');
-var cheerio = require('cheerio');
+    "use strict";
 
- 
-request('http://www.thejakartapost.com/', function(err, resp, html ) {
+    require('../models/News.js');
+    var request = require('request-promise');
+    var mongoose = require('mongoose');
+    var News = mongoose.model('News');
+    var cheerio = require('cheerio');
 
-if(!err && resp.statusCode === 200 ) {
+    var getNewsDetailsJKPost = function(html) {
 
-	var $ = cheerio.load(html);
-	
-	var dateExp = /([0-9][0-9]):([0-9][0-9])(\s)(AM|PM)/g;
+        var $ = cheerio.load(html);
 
-	$('div.breaking-list li').each(function(index, element){
-		
-		var temp = $(element).html();
+        var img = $('div.teaser>img.image').attr('src');
 
-		var time = $(temp).find('.date').text();
+        if (typeof img === 'undefined') {
 
-		var headline = $(temp).find('a').text();
+            img = "http://placehold.it/350x150";
 
-		var url = $(temp).find('a').attr('href');
-		
-		var newsContent = getNewsDetailsJKPost(url);	
+        }
 
-		var source = 'TheJakartaPost';
+        /*Take only the first paragraph */
+        var news = $('div.span-13.last p:nth-child(2)').html();
 
-		var News = new News();
+        return [news, img];
 
-		// Checks if the news is present already , if not inserts  
-		//http://mongoosejs.com/docs/api.html#model_Model.findOneAndUpdate
-		
-		News.findOneAndUpdate({ Title: headlines },
-							  { Title: headlines, SiteName: source, Url: url, Summary: newsContent[1], Image: newsContent[1] }, 
-							  { 
-							  	upsert: true							  	
-							  });
-
-	});
-
-}
+    };
 
 
-}); 
+    request('http://www.thejakartapost.com/')
+        .then(function(html) {
 
-var getNewsDetailsJKPost = function(url) {
+            var $ = cheerio.load(html);
 
-	var newsImage;
-	var newsDetails;
-	
-	request(url,function(err, resp, html) {
+            var dateExp = /([0-9][0-9]):([0-9][0-9])(\s)(AM|PM)/g;
 
-		if(!err && resp.statusCode === 200 ) {
+            $('div.breaking-list li').each(function(index, element) {
 
-			var $ = cheerio.load(html);
+                var temp = $(element).html();
 
-			var img = $('div.teaser>img.image').attr('src');
+                var time = $(temp).find('.date').text();
 
-			if(typeof img === 'undefined') {
-			 	
-			 	img = "http://placehold.it/350x150";
-			
-			}
+                var headlines = $(temp).find('a').text();
 
-			/*Take only the first paragraph */
-			var news = $('div.span-13.last p:first-child').html();
+                var url = $(temp).find('a').attr('href');
 
+                var source = 'TheJakartaPost';
 
-			return [ img, news ];
+                request(url).then(function(body) {
 
-		}
+                    var newsContent = getNewsDetailsJKPost(body);
 
-	});
+                    // Checks if the news is present already , if not inserts  
+                    //http://mongoosejs.com/docs/api.html#model_Model.findOneAndUpdate
 
-};
+                    News.findOneAndUpdate({
+                        Title: headlines
+                    }, {
+                        Title: headlines,
+                        SiteName: source,
+                        Url: url,
+                        Summary: newsContent[0],
+                        Image: newsContent[1]
+                    }, {
+                        upsert: true
+                    },function(err, resp) {
+                    	console.log(err);
+                    });
+
+                });
+
+            });
+
+        });
+
 
 
 }
-

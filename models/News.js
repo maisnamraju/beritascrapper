@@ -2,7 +2,9 @@
 
 var mongoose = require('mongoose');
 
-var News = mongoose.model('News', { 
+var Schema = mongoose.Schema;
+
+var News = new  Schema({ 
 		SiteName : {
 			type: 'String',
 			default: null
@@ -27,7 +29,7 @@ var News = mongoose.model('News', {
 			type: 'String',
 			default: null
 		}
+	});
 
-});
 
-module.exports = mongoose.model(News,'News');
+ module.exports = mongoose.model('News', News);

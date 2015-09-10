@@ -68,10 +68,13 @@ module.exports = function() {
                     	console.log(err);
                     });
 
+                    return true;
+
                 });
 
+                	return true;
             });
-
+					return true;
         });
 
 

@@ -1,5 +1,6 @@
 module.exports = function (app, mongoose) {
 
+
   var connect = function () {
 
     mongoose.connect('mongodb://localhost/beritascrapper');

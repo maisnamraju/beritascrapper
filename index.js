@@ -17,9 +17,12 @@ fs.readdirSync(models_path).forEach(function (file) {
 
 var JKPost = require('./websites/JKPost');
 var JKGlobe = require('./websites/TheJakartaGlobe');
+var Detik = require('./websites/Detik');
+
+Detik();
 
 // Perform all the scraping asynchronously 
-var tasksArray = [JKPost, JKGlobe];
+/*var tasksArray = [ JKPost, JKGlobe, Detik];
 
 
 var scrapeAsynchronous = function() {
@@ -28,9 +31,9 @@ var scrapeAsynchronous = function() {
 		console.log('tasks are asynchronously being worked on');	
 	});
 
-};
+};*/
 
-setInterval(scrapeAsynchronous, 20000 ); // scrapes every 20 seconds 
+//setInterval(scrapeAsynchronous, 20000 ); // scrapes every 20 seconds 
 
 app.listen(3000);  
 

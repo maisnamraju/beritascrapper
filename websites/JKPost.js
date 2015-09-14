@@ -65,7 +65,7 @@ module.exports = function() {
                     }, {
                         upsert: true
                     },function(err, resp) {
-                    	console.log(err);
+                    	console.log('JKPOST scrapped');
                     });
 
                     return true;

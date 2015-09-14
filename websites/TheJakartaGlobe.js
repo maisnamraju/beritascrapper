@@ -28,7 +28,7 @@ module.exports = function() {
                                     }, {
                                         upsert: true
                                     },function(err, resp) {
-                                        //console.log(err);
+                                        console.log('JKGlobe scrapper');
                                     });
                                 
                     });                   

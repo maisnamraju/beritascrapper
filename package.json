@@ -20,6 +20,7 @@
   },
   "homepage": "https://github.com/maisnamraju/beritascrapper#readme",
   "dependencies": {
+    "async": "^1.4.2",
     "cheerio": "^0.19.0",
     "express": "^4.13.3",
     "fs": "0.0.2",

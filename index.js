@@ -18,12 +18,16 @@ fs.readdirSync(models_path).forEach(function (file) {
 var JKPost = require('./websites/JKPost');
 var JKGlobe = require('./websites/TheJakartaGlobe');
 var Detik = require('./websites/Detik');
-
+var TempoIndo = require('./websites/tempo'); // gets the indonesian news 
+var TempoEn = require('./websites/TempoEnglish');
+var BeritaSatu = require('./websites/BeritaSatu');
 
 // Perform all the scraping asynchronously 
-var tasksArray = [ JKPost, JKGlobe, Detik];
+var tasksArray = [ JKPost, JKGlobe, Detik, TempoIndo, TempoEn, BeritaSatu];
 
+BeritaSatu();
 
+/*
 var scrapeAsynchronous = function() {
 
 	async.parallel(tasksArray, function(err, resp) {
@@ -32,8 +36,8 @@ var scrapeAsynchronous = function() {
 
 };
 
-setInterval(scrapeAsynchronous, 20000 ); // scrapes every 20 seconds 
+setInterval(scrapeAsynchronous, 20000 );*/ // scrapes every 20 seconds 
 
-app.listen(3000);  
+//app.listen(6000);  
 
 module.exports = app;

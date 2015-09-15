@@ -10,25 +10,6 @@ module.exports = function() {
     var moment = require('moment');
     var parseString = require('xml2js').parseString;
 
-  /*  var getNewsDetailsDetik = function(html) {
-
-        var $ = cheerio.load(html);
-
-        var img = $('div.teaser>img.image').attr('src');
-
-        if (typeof img === 'undefined') {
-
-            img = "http://placehold.it/350x150";
-
-        }
-
-        /*Take only the first paragraph */
-        /*var news = $('div.span-13.last p:nth-child(2)').html();
-
-        return [news, img];
-
-    };*/
-
 
     request('http://detik.feedsportal.com/c/33613/f/656082/index.rss')
            .then(function(xml) {

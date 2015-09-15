@@ -6,7 +6,7 @@ module.exports = function() {
     var mongoose = require('mongoose');
     var News = mongoose.model('News');
     var request = require('request-promise');        
-    var cheerio = require('cheerio');
+    var $ = require('cheerio');
     var moment = require('moment');
     var parseString = require('xml2js').parseString;
 
@@ -35,7 +35,7 @@ module.exports = function() {
 
                 parseString(xml, function (err, result) {                    
                     
-                var news = result.rss.channel[0].item;                
+                var news = result.rss.channel[0].item; 
 
                 news.forEach(function(item, index){                        
 
@@ -43,30 +43,27 @@ module.exports = function() {
 
                         if(typeof item.enclosure !== 'undefined') { // checks if image is present 
                             
-                            image = item.enclosure[0].$.url +'?w=450&q=150' ;
+                            image = item.enclosure[0].$.url +'?w=350&q=150' ;
                         
                         }else {
                             image = 'http://news.detik.com/images/logodetiknews.png';
-                        }         
+                        }
 
-                        parseString(item.guid, function(err,resp) {
-                            console.log(resp);
-                        });
-
-
-                       /*     News.findOneAndUpdate({
-                                        Title: item.title[0]
-                                    }, {
-                                        Title: item.title[0],
-                                        SiteName: 'Detik',
-                                        Url: item.link[0],
-                                        Summary: item.description,
-                                        Image: 'http://jakartaglobe.beritasatu.com/assets/desktop/images/footer/logo.png'
-                                    }, {
-                                        upsert: true
-                                    },function(err, resp) {
-                                        console.log('JKGlobe scrapper');
-                                    });*/
+                        var summary = $(item.description[0]).text();                        
+                        
+                         News.findOneAndUpdate({
+                                    Title: item.title[0]
+                                }, {
+                                    Title: item.title[0],
+                                    SiteName: 'Detik',
+                                    Url: item.link[0],
+                                    Summary: summary,
+                                    Image: image
+                                }, {
+                                    upsert: true
+                                },function(err, resp) {
+                                    console.log('Detik scrapped');
+                                });
                                 
                     });              
 

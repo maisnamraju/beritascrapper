@@ -21,11 +21,15 @@ var Detik = require('./websites/Detik');
 var TempoIndo = require('./websites/tempo'); // gets the indonesian news 
 var TempoEn = require('./websites/TempoEnglish');
 var BeritaSatu = require('./websites/BeritaSatu');
+var Viva = require('./websites/Viva');
 
 // Perform all the scraping asynchronously 
-var tasksArray = [ JKPost, JKGlobe, Detik, TempoIndo, TempoEn, BeritaSatu];
+var tasksArray = [ JKPost, JKGlobe, Detik, TempoIndo, TempoEn, BeritaSatu, Viva];
 
-BeritaSatu();
+
+Viva();
+
+
 
 /*
 var scrapeAsynchronous = function() {

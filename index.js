@@ -22,17 +22,16 @@ var TempoIndo = require('./websites/tempo'); // gets the indonesian news
 var TempoEn = require('./websites/TempoEnglish');
 var BeritaSatu = require('./websites/BeritaSatu');
 var Viva = require('./websites/Viva');
-
+var KapanLagi = require('./websites/Kapanlagi');
+var Kompass = require('./websites/Kompass');
 // Perform all the scraping asynchronously 
-var tasksArray = [ JKPost, JKGlobe, Detik, TempoIndo, TempoEn, BeritaSatu, Viva];
 
+// Viva and Kapanlagi should be expecuted last (Slow response and buggy xml )
+var tasksArray = [ JKPost, JKGlobe, Detik, TempoIndo, TempoEn, BeritaSatu, Kompass, Viva, KapanLagi];
 
-Viva();
+Kompass();
 
-
-
-/*
-var scrapeAsynchronous = function() {
+/*var scrapeAsynchronous = function() {
 
 	async.parallel(tasksArray, function(err, resp) {
 		console.log('tasks are asynchronously being worked on');	
@@ -40,7 +39,7 @@ var scrapeAsynchronous = function() {
 
 };
 
-setInterval(scrapeAsynchronous, 20000 );*/ // scrapes every 20 seconds 
+setInterval(scrapeAsynchronous, 20000 ); */// scrapes every 20 seconds 
 
 //app.listen(6000);  
 

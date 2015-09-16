@@ -29,9 +29,8 @@ var Kompass = require('./websites/Kompass');
 // Viva and Kapanlagi should be expecuted last (Slow response and buggy xml )
 var tasksArray = [ JKPost, JKGlobe, Detik, TempoIndo, TempoEn, BeritaSatu, Kompass, Viva, KapanLagi];
 
-Kompass();
 
-/*var scrapeAsynchronous = function() {
+var scrapeAsynchronous = function() {
 
 	async.parallel(tasksArray, function(err, resp) {
 		console.log('tasks are asynchronously being worked on');	
@@ -39,8 +38,8 @@ Kompass();
 
 };
 
-setInterval(scrapeAsynchronous, 20000 ); */// scrapes every 20 seconds 
+setInterval(scrapeAsynchronous, 20000 ); // scrapes every 20 seconds 
 
-//app.listen(6000);  
+app.listen(6000);  
 
 module.exports = app;
